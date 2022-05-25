@@ -23,6 +23,10 @@ const User = connection_1.default.define('User', {
         type: sequelize_1.DataTypes.STRING,
         allowNull: true
     },
+    image: {
+        type: sequelize_1.DataTypes.STRING,
+        allowNull: true
+    },
 });
 exports.default = User;
 //# sourceMappingURL=user.js.map

@@ -19,6 +19,10 @@ const User = db.define('User',{
         type: DataTypes.STRING,
         allowNull: true
     },
+    image: {
+        type: DataTypes.STRING,
+        allowNull: true
+    },
 })
 
 export default User
