@@ -23,14 +23,6 @@ const User = connection_1.default.define('User', {
         type: sequelize_1.DataTypes.STRING,
         allowNull: true
     },
-    /* created_at: {
-         type: DataTypes.DATE,
-         defaultValue: new Date()
-     },
-     updated_at: {
-         type: DataTypes.DATE,
-         defaultValue: new Date()
-     },*/
 });
 exports.default = User;
 //# sourceMappingURL=user.js.map

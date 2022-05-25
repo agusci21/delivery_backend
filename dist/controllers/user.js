@@ -25,7 +25,6 @@ exports.getUsers = getUsers;
 const getUser = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     const { id } = req.params;
     const user = yield user_1.default.findByPk(id);
-    //Este error no es real
     if (user) {
         res.json({
             user,
@@ -103,8 +102,7 @@ const deleteUser = (req, res) => __awaiter(void 0, void 0, void 0, function* () 
         });
     }
     const user = yield user_1.default.findByPk(id);
-    yield (user === null || user === void 0 ? void 0 : user.update({ state: false }));
-    // await user?.destroy() Esto elimina fisicamente el usuario
+    yield (user === null || user === void 0 ? void 0 : user.destroy());
     res.json({
         msg: 'usuario eliminado',
         user

@@ -1,7 +1,6 @@
 import { Request, Response } from 'express'
 import User from '../models/user'
 import { checkIfEmailExists, checkIfIdExists } from '../helpers/check_if_params_exists';
-import { parse } from 'dotenv';
 
 export const getUsers = async (req: Request, res: Response) => {
   const users = await User.findAll()
@@ -14,7 +13,6 @@ export const getUsers = async (req: Request, res: Response) => {
 export const getUser = async (req: Request, res: Response) => {
   const { id } = req.params
   const user = await User.findByPk(id)
-  //Este error no es real
   if(user){
       res.json({
         user,
@@ -99,8 +97,7 @@ export const deleteUser = async(req: Request, res: Response) => {
   const user = await User.findByPk(id)
 
 
-    await user?.update({state: false})
-   // await user?.destroy() Esto elimina fisicamente el usuario
+   await user?.destroy() 
 
   res.json({
     msg: 'usuario eliminado',

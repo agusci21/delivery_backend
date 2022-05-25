@@ -19,15 +19,6 @@ const User = db.define('User',{
         type: DataTypes.STRING,
         allowNull: true
     },
-   /* created_at: {
-        type: DataTypes.DATE,
-        defaultValue: new Date()
-    },
-    updated_at: {
-        type: DataTypes.DATE,
-        defaultValue: new Date()
-    },*/
-    
 })
 
 export default User
