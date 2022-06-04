@@ -4,8 +4,8 @@
   "description": "Backend de la app delivery de flutter",
   "main": "index.js",
   "scripts": {
-    "start": "node index.js",
-    "test": "nodemon index.js"
+    "start": "node dist/index.js",
+    "test": "nodemon dist/index.js"
   },
   "keywords": [
     "flutter",

@@ -16,6 +16,7 @@ class Server {
     constructor() {
         this.app  = express();
         this.port = process.env.PORT || '8000';
+        this.defineCredentials()
         
         // Métodos iniciales
         this.dbConnection();
@@ -53,6 +54,9 @@ class Server {
         this.app.use( this.apiPaths.users, userRoutes )
     }
 
+    private defineCredentials(){
+        dotEnv.config()
+    }
 
     listen() {
         this.app.listen( this.port, () => {

@@ -15,6 +15,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
 const express_1 = __importDefault(require("express"));
 const user_1 = __importDefault(require("../routes/user"));
 const cors_1 = __importDefault(require("cors"));
+const dotenv_1 = __importDefault(require("dotenv"));
 const connection_1 = __importDefault(require("../db/connection"));
 class Server {
     constructor() {
@@ -23,6 +24,7 @@ class Server {
         };
         this.app = (0, express_1.default)();
         this.port = process.env.PORT || '8000';
+        this.defineCredentials();
         // Métodos iniciales
         this.dbConnection();
         this.middlewares(); // Es importante este orden en los metodos del constructor
@@ -49,6 +51,9 @@ class Server {
     }
     routes() {
         this.app.use(this.apiPaths.users, user_1.default);
+    }
+    defineCredentials() {
+        dotenv_1.default.config();
     }
     listen() {
         this.app.listen(this.port, () => {
