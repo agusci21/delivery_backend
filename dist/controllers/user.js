@@ -15,6 +15,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.deleteUser = exports.putUser = exports.postUser = exports.getUser = exports.getUsers = void 0;
 const user_1 = __importDefault(require("../models/user"));
 const check_if_params_exists_1 = require("../helpers/check_if_params_exists");
+const bcryptjs_1 = __importDefault(require("bcryptjs"));
 const getUsers = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     const users = yield user_1.default.findAll();
     res.json({
@@ -39,7 +40,7 @@ const getUser = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
 exports.getUser = getUser;
 const postUser = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     const { body } = req;
-    const { email } = body;
+    const { email, password } = body;
     try {
         const emailExists = yield (0, check_if_params_exists_1.checkIfEmailExists)(email);
         if (emailExists) {
@@ -48,6 +49,8 @@ const postUser = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
             });
         }
         const user = user_1.default.build(body);
+        const salt = bcryptjs_1.default.genSaltSync();
+        user.password = bcryptjs_1.default.hashSync(password, salt);
         yield user.save();
         res.status(201).json({
             user

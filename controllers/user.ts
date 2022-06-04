@@ -1,6 +1,7 @@
 import { Request, Response } from 'express'
 import User from '../models/user'
 import { checkIfEmailExists, checkIfIdExists } from '../helpers/check_if_params_exists';
+import bcryptjs from 'bcryptjs';
 
 export const getUsers = async (req: Request, res: Response) => {
   const users = await User.findAll()
@@ -27,7 +28,7 @@ export const getUser = async (req: Request, res: Response) => {
 
 export const postUser = async (req: Request, res: Response) => {
   const { body } = req
-  const {email} = body
+  const {email, password} = body
   try {
     const emailExists = await checkIfEmailExists(email)
     if(emailExists){
@@ -35,7 +36,9 @@ export const postUser = async (req: Request, res: Response) => {
         msg: 'Ya existe un usuario con el email: ' + body.email
       })
     }
-    const user =  User.build(body)
+    const user=  User.build(body)
+    const salt = bcryptjs.genSaltSync()
+    user.password = bcryptjs.hashSync(password, salt)
     await user.save()
     res.status(201).json({
       user
