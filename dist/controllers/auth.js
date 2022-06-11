@@ -16,6 +16,7 @@ exports.login = void 0;
 const check_if_params_exists_1 = require("../helpers/check_if_params_exists");
 const bcryptjs_1 = __importDefault(require("bcryptjs"));
 const user_1 = __importDefault(require("../models/user"));
+const generate_jwt_1 = require("../helpers/generate_jwt");
 const login = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     const { email, password } = req.body;
     try {
@@ -26,18 +27,19 @@ const login = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
         }
         const user = yield user_1.default.findOne({ where: { email: email } });
         const isValidPassword = bcryptjs_1.default.compareSync(password, user.password);
-        if (isValidPassword)
+        if (isValidPassword) {
+            const token = yield (0, generate_jwt_1.generateJWT)(user.id);
             res.json({
-                msg: 'Contraseña valida',
-                email,
-                password,
+                user, token
             });
+        }
         else
             res.status(400).json({
                 msg: 'Contraseña invalida',
                 email,
                 password,
             });
+        const token = yield (0, generate_jwt_1.generateJWT)(user.id);
     }
     catch (error) {
         console.log(error);
