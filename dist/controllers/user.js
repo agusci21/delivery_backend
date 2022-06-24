@@ -72,16 +72,22 @@ const setImage = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
         });
     }
     const { image } = req.files;
+    const newFileName = image.name.split('.');
+    const extencion = newFileName[(newFileName.length - 1)];
+    const validExtencions = ['jpg', 'png', 'jpeg'];
+    if (!validExtencions.includes(extencion))
+        return res.status(400).json({ msg: `La extención ${extencion} no es valida` });
     const uploadPath = path_1.default.join(__dirname, '../uploads/', image.name);
     console.log(uploadPath);
-    image.mv(uploadPath, (error) => {
-        if (error) {
-            console.log(error);
-            return res.status(500).json({
-                msg: 'Error interno del servidor',
-            });
-        }
-    });
+    return res.json({ extencion });
+    /*image.mv(uploadPath, (error: Error) => {
+      if (error) {
+        console.log(error)
+        return res.status(500).json({
+          msg: 'Error interno del servidor',
+        })
+      }
+    })*/
 });
 exports.setImage = setImage;
 const putUser = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
