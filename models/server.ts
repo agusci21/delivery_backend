@@ -4,6 +4,7 @@ import authRoutes from '../routes/auth';
 import cors from 'cors';
 import dotEnv from 'dotenv'
 import db from '../db/connection';
+import fileUpload from 'express-fileupload'
 
 
 class Server {
@@ -49,6 +50,13 @@ class Server {
 
         // Carpeta pública
         this.app.use( express.static('public') );
+
+        //Files
+        this.app.use(fileUpload({
+            useTempFiles: true,
+            tempFileDir: '/temp/',
+            createParentPath: true
+        }))
     }
 
 

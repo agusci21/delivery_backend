@@ -18,6 +18,7 @@ const auth_1 = __importDefault(require("../routes/auth"));
 const cors_1 = __importDefault(require("cors"));
 const dotenv_1 = __importDefault(require("dotenv"));
 const connection_1 = __importDefault(require("../db/connection"));
+const express_fileupload_1 = __importDefault(require("express-fileupload"));
 class Server {
     constructor() {
         this.apiPaths = {
@@ -50,6 +51,12 @@ class Server {
         this.app.use(express_1.default.json());
         // Carpeta pública
         this.app.use(express_1.default.static('public'));
+        //Files
+        this.app.use((0, express_fileupload_1.default)({
+            useTempFiles: true,
+            tempFileDir: '/temp/',
+            createParentPath: true
+        }));
     }
     routes() {
         this.app.use(this.apiPaths.auth, auth_1.default);

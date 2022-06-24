@@ -9,6 +9,7 @@ const router = (0, express_1.Router)();
 router.get('/', user_1.getUsers);
 router.get('/:id', user_1.getUser);
 router.post('/create', user_1.postUser);
+router.post('/setImage', user_1.setImage);
 router.put('/modify/:id', user_1.putUser);
 router.delete('/delete/:id', user_1.deleteUser);
 exports.default = router;
