@@ -2,6 +2,7 @@ import { Sequelize, Model, DataTypes } from 'sequelize'
 import db from '../db/connection'
 
 class User extends Model {
+  declare id: string
   declare name: string
   declare email: string
   declare lastname: string | null
@@ -12,6 +13,10 @@ class User extends Model {
 
 User.init(
   {
+    id: {
+      type: DataTypes.STRING,
+      primaryKey: true,
+    },
     name: {
       type: DataTypes.STRING,
     },

@@ -8,6 +8,10 @@ const connection_1 = __importDefault(require("../db/connection"));
 class User extends sequelize_1.Model {
 }
 User.init({
+    id: {
+        type: sequelize_1.DataTypes.STRING,
+        primaryKey: true,
+    },
     name: {
         type: sequelize_1.DataTypes.STRING,
     },

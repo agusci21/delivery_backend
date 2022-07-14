@@ -26,6 +26,8 @@ const login = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
             });
         }
         const user = yield user_1.default.findOne({ where: { email: email } });
+        if (!user)
+            return;
         const isValidPassword = bcryptjs_1.default.compareSync(password, user.password);
         if (isValidPassword) {
             const token = yield (0, generate_jwt_1.generateJWT)(user.id);

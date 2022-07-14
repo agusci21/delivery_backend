@@ -13,7 +13,7 @@ export const login = async (req: Request, res: Response) => {
       })
     }
     const user = await User.findOne({ where: { email: email } })
-
+    if(!user) return 
     const isValidPassword = bcryptjs.compareSync(password, user.password)
 
     if (isValidPassword) {
