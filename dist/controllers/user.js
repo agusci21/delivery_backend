@@ -71,7 +71,8 @@ const setImage = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
             msg: 'No se enviaron archivos',
         });
     }
-    const { image } = req.files;
+    const image = req.files.image;
+    console.log(typeof (image.mv));
     const newFileName = image.name.split('.');
     const extencion = newFileName[(newFileName.length - 1)];
     const validExtencions = ['jpg', 'png', 'jpeg'];

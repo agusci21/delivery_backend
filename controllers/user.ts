@@ -7,6 +7,14 @@ import {
 import bcryptjs from 'bcryptjs'
 import path from 'path'
 
+type Image = {
+  name: string,
+  data: any,
+  encoding: string,
+  mimetype: string,
+  mv: Function | Function[]
+}
+
 export const getUsers = async (req: Request, res: Response) => {
   const users = await User.findAll()
 
@@ -61,8 +69,8 @@ export const setImage = async (req: Request, res: Response) => {
       msg: 'No se enviaron archivos',
     })
   }
-
-  const { image } = req.files
+  const image : Image= req.files.image as Image
+  console.log(typeof(image.mv))
   const newFileName: string[] = image.name.split('.')
   const extencion: string = newFileName[(newFileName.length - 1)]
   const validExtencions = ['jpg', 'png', 'jpeg']
